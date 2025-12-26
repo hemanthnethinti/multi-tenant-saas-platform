@@ -1,13 +1,17 @@
 :root {
-  --gradient-start: #4f46e5; /* indigo-600 */
-  --gradient-end: #ec4899;   /* pink-500 */
-  --bg: #0b1220;
+  --gradient-start: #1e293b; /* slate-900 */
+  --gradient-end: #334155;   /* slate-700 */
+  --bg: #f8fafc;
   --card-bg: #ffffff;
-  --text: #0f172a;
+  --text: #1e293b;
   --muted: #64748b;
   --border: #e2e8f0;
-  --primary: #4f46e5;
+  --primary: #2563eb;
   --primary-contrast: #ffffff;
+  --success: #16a34a;
+  --warning: #ea580c;
+  --danger: #dc2626;
+  --info: #0284c7;
 }
 
 body {
@@ -17,7 +21,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+  background: #f8fafc;
   min-height: 100vh;
 }
 

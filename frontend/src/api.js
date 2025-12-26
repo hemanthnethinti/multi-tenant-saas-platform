@@ -7,14 +7,17 @@ export const clearToken = () => localStorage.removeItem("token");
 async function request(path, { method = "GET", body, headers = {}, auth = true } = {}) {
   const h = { "Content-Type": "application/json", ...headers };
   if (auth && getToken()) h["Authorization"] = `Bearer ${getToken()}`;
+  console.log(`[API] Fetching: ${BASE}${path}`);
   try {
     const res = await fetch(`${BASE}${path}`, { method, headers: h, body: body ? JSON.stringify(body) : undefined });
+    console.log(`[API] Response status: ${res.status}`);
     const data = await res.json().catch(() => ({}));
     if (!res.ok) throw new Error(data.message || `HTTP ${res.status}`);
     return data;
   } catch (err) {
+    console.error(`[API] Error:`, err);
     // Handle network errors or fetch failures
-    if (err.message.includes('fetch')) {
+    if (err.message.includes('fetch') || err instanceof TypeError) {
       throw new Error('Unable to connect to server. Please check if the backend is running.');
     }
     throw err;

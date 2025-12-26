@@ -29,9 +29,9 @@ exports.listProjects = async (req, res) => {
   const l = Math.min(Math.max(parseInt(limit), 1), 100);
   const p = Math.max(parseInt(page), 1);
   const offset = (p - 1) * l;
-  const where = ["tenant_id = $1"]; const vals = [tenantId]; let i = 2;
-  if (status) { where.push(`status = $${i++}`); vals.push(status); }
-  if (search) { where.push(`LOWER(name) LIKE $${i}`); vals.push(`%${search.toLowerCase()}%`); i++; }
+  const where = ["pr.tenant_id = $1"]; const vals = [tenantId]; let i = 2;
+  if (status) { where.push(`pr.status = $${i++}`); vals.push(status); }
+  if (search) { where.push(`LOWER(pr.name) LIKE $${i}`); vals.push(`%${search.toLowerCase()}%`); i++; }
   const rows = await pool.query(
     `SELECT pr.id, pr.name, pr.description, pr.status, pr.created_at,
             u.id as created_by_id, u.full_name as created_by_name,
@@ -44,7 +44,7 @@ exports.listProjects = async (req, res) => {
      LIMIT $${i} OFFSET $${i+1}`,
     [...vals, l, offset]
   );
-  const count = await pool.query(`SELECT COUNT(*) FROM projects WHERE ${where.join(" AND ")}`,[...vals]);
+  const count = await pool.query(`SELECT COUNT(*) FROM projects pr WHERE ${where.join(" AND ")}`,[...vals]);
   return success(res, {
     projects: rows.rows.map(r => ({
       id: r.id,

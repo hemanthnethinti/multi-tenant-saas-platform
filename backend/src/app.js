@@ -10,10 +10,22 @@ const taskRoutes = require("./routes/tasks");
 
 const app = express();
 app.use(express.json());
-// Allow requests from frontend URL (service name in Docker)
+// Allow requests from frontend URL (both localhost for dev and docker service name)
 app.use(
   cors({
-    origin: process.env.FRONTEND_URL || "http://localhost:3000",
+    origin: (origin, callback) => {
+      const allowedOrigins = [
+        "http://localhost:3000",
+        "http://localhost:3001",
+        "http://frontend:3000",
+        "http://127.0.0.1:3000"
+      ];
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("CORS not allowed"));
+      }
+    },
     credentials: true,
   })
 );
