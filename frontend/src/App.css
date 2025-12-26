@@ -1,0 +1,105 @@
+/* Layout */
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 24px;
+  color: var(--text);
+}
+
+.nav {
+  backdrop-filter: saturate(180%) blur(10px);
+  background: rgba(255, 255, 255, 0.2);
+  border-bottom: 1px solid rgba(255,255,255,0.25);
+  color: #fff;
+}
+
+.nav-inner {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.nav a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.nav .spacer {
+  flex: 1;
+}
+
+/* Card */
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+  padding: 24px;
+}
+
+.stack { gap: 16px; display: grid; }
+
+h1, h2, h3 {
+  margin: 0 0 12px 0;
+}
+
+h2 {
+  background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.muted { color: var(--muted); }
+
+/* Form */
+form { display: grid; gap: 12px; }
+label { display: grid; gap: 8px; font-size: 14px; color: var(--text); }
+input[type="text"], input[type="email"], input[type="password"], input[type="search"], input[type="number"], select {
+  appearance: none;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px 14px;
+  font-size: 14px;
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 12px;
+  padding: 10px 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-primary {
+  color: var(--primary-contrast);
+  background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end));
+  box-shadow: 0 8px 16px rgba(79,70,229,0.25);
+}
+
+.btn-primary:hover {
+  filter: brightness(1.05);
+}
+
+.btn-outline {
+  background: transparent;
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.6);
+}
+
+/* Lists */
+.list { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+.list-item { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 12px; }
+
+/* Alerts */
+.alert { padding: 10px 12px; border-radius: 12px; font-size: 14px; }
+.alert.error { background: #fee2e2; color: #7f1d1d; }
+.alert.success { background: #dcfce7; color: #14532d; }
