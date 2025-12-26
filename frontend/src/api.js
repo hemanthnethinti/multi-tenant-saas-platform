@@ -7,10 +7,18 @@ export const clearToken = () => localStorage.removeItem("token");
 async function request(path, { method = "GET", body, headers = {}, auth = true } = {}) {
   const h = { "Content-Type": "application/json", ...headers };
   if (auth && getToken()) h["Authorization"] = `Bearer ${getToken()}`;
-  const res = await fetch(`${BASE}${path}`, { method, headers: h, body: body ? JSON.stringify(body) : undefined });
-  const data = await res.json().catch(() => ({}));
-  if (!res.ok) throw new Error(data.message || `HTTP ${res.status}`);
-  return data;
+  try {
+    const res = await fetch(`${BASE}${path}`, { method, headers: h, body: body ? JSON.stringify(body) : undefined });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) throw new Error(data.message || `HTTP ${res.status}`);
+    return data;
+  } catch (err) {
+    // Handle network errors or fetch failures
+    if (err.message.includes('fetch')) {
+      throw new Error('Unable to connect to server. Please check if the backend is running.');
+    }
+    throw err;
+  }
 }
 
 export const login = (email, password, tenantSubdomain) => request(`/auth/login`, { method: "POST", body: { email, password, tenantSubdomain }, auth: false });
